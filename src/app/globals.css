@@ -1,7 +1,7 @@
 /** @format */
 
 @import 'tailwindcss';
-@import '@taskio/ui-kit/src/styles.css';
+@import '@taskio/ui-kit/src/dist/styles.css';
 
 :root {
 	--background: #ffffff;
@@ -23,7 +23,6 @@
 }
 
 body {
-	background: var(--background);
 	color: var(--foreground);
 	font-family: var(--font-michroma);
 }
