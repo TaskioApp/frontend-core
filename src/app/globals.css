@@ -2,15 +2,24 @@
 
 @import 'tailwindcss';
 @import '@taskio/ui-kit/src/dist/styles.css';
+@custom-variant dark (&:where(.dark, .dark *));
 
 :root {
 	--background: #ffffff;
 	--foreground: #171717;
+
+	--color-text-dark: #1f2937; /* gray-800 */
+	--color-text-light: #e5e7eb; /* gray-200 */
 }
 
 @theme inline {
 	--color-background: var(--background);
 	--color-foreground: var(--foreground);
+	--color-text-dark: var(--color-text-dark);
+	--color-text-light: var(--color-text-light);
+
+	--font-size-base: 0.875rem;
+
 	--font-roboto: var(--font-roboto);
 	--font-michroma: var(--font-michroma);
 }
@@ -19,10 +28,43 @@
 	:root {
 		--background: #0a0a0a;
 		--foreground: #ededed;
+
+		--color-text-dark: #e5e7eb; /* gray-200 */
+		--color-text-light: #1f2937; /* gray-800 */
 	}
 }
 
+body,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+span,
+a,
+li,
+div {
+	color: var(--color-text-light);
+	font-size: var(--font-size-base);
+}
+
+.dark body,
+.dark h1,
+.dark h2,
+.dark h3,
+.dark h4,
+.dark h5,
+.dark h6,
+.dark p,
+.dark span,
+.dark a,
+.dark li,
+.dark div {
+	color: var(--color-text-dark);
+}
+
 body {
-	color: var(--foreground);
 	font-family: var(--font-michroma);
 }
