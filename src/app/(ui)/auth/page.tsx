@@ -7,12 +7,13 @@ import { InputIcon } from '@taskio/ui-kit/src/components/Form/Input/InputIcon'
 import { FaUser } from 'react-icons/fa'
 import { FormElement } from '@taskio/ui-kit/src/components/Form'
 import { useAuthForm } from './hooks/useAuthForm'
+import ResendCode from './components/ResendCode'
 
 export default function Login() {
-	const { control, handleSubmit, onSubmit, isLoading, step } = useAuthForm()
+	const { control, handleSubmit, onSubmit, loginMutation, getValues, isLoading, step, setStep } = useAuthForm()
 
 	return (
-		<div className='flex justify-center items-center bg-black h-screen'>
+		<div className='flex justify-center items-center h-screen'>
 			<form onSubmit={handleSubmit(onSubmit)}>
 				<Controller
 					name='username'
@@ -28,24 +29,27 @@ export default function Login() {
 				/>
 
 				{step === 'VERIFY' && (
-					<div className='mt-3'>
-						<Controller
-							name='code'
-							control={control}
-							render={row => (
-								<FormElement.Input
-									{...row}
-									label='Code'
-									className='tracking-[3px]'
-									icon={<InputIcon color='#fff' Icon={FaUser} />}
-								/>
-							)}
-						/>
-					</div>
+					<>
+						<div className='mt-3'>
+							<Controller
+								name='code'
+								control={control}
+								render={row => (
+									<FormElement.Input
+										{...row}
+										label='Code'
+										className='tracking-[3px]'
+										icon={<InputIcon color='#fff' Icon={FaUser} />}
+									/>
+								)}
+							/>
+						</div>
+						<ResendCode onResendCode={() => loginMutation.mutateAsync({ username: getValues('username') })} />
+					</>
 				)}
 
 				<div className='mt-2 text-center'>
-					<Button type='submit' shadow isLoading={isLoading}>
+					<Button shadow isLoading={isLoading}>
 						ok
 					</Button>
 				</div>

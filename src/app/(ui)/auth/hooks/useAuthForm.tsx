@@ -22,7 +22,7 @@ export function useAuthForm() {
 		code: step === 'VERIFY' ? yup.string().required() : yup.string().notRequired()
 	})
 
-	const { control, handleSubmit } = useForm<IFormInput>({
+	const { control, handleSubmit, getValues } = useForm<IFormInput>({
 		defaultValues: {
 			username: '',
 			code: ''
@@ -62,7 +62,10 @@ export function useAuthForm() {
 		control,
 		handleSubmit,
 		onSubmit,
+		loginMutation,
+		getValues,
 		isLoading: loading,
+		setStep,
 		step
 	}
 }
