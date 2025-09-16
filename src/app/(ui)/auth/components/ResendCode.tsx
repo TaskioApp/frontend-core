@@ -2,12 +2,11 @@
 'use client'
 import { Button } from '@taskio/ui-kit'
 import { JSX, useEffect, useState } from 'react'
-import { LoginResponse } from '@/auth/services/interfaces'
 
-const initialTime = 120
+const initialTime = 2
 
 type ResendCodeProps = {
-	onResendCode: () => Promise<LoginResponse>
+	onResendCode: () => void
 }
 
 const ResendCode: React.FC<ResendCodeProps> = ({ onResendCode }: ResendCodeProps): JSX.Element => {

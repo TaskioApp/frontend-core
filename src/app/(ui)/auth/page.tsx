@@ -10,11 +10,16 @@ import { useAuthForm } from './hooks/useAuthForm'
 import ResendCode from './components/ResendCode'
 
 export default function Login() {
-	const { control, handleSubmit, onSubmit, loginMutation, getValues, isLoading, step } = useAuthForm()
+	const { control, handleSubmit, onSubmit, loginMutation, getValues, setValue, isLoading, step } = useAuthForm()
+
+	const onResendCode = async () => {
+		setValue('code', '')
+		await loginMutation.mutateAsync({ username: getValues('username') })
+	}
 
 	return (
 		<div className='flex justify-center items-center h-screen'>
-			<form onSubmit={handleSubmit(onSubmit)}>
+			<form onSubmit={handleSubmit(onSubmit)} className='w-96'>
 				<Controller
 					name='username'
 					control={control}
@@ -27,27 +32,18 @@ export default function Login() {
 						/>
 					)}
 				/>
-
 				{step === 'VERIFY' && (
 					<>
 						<div className='mt-3'>
 							<Controller
 								name='code'
 								control={control}
-								render={row => (
-									<FormElement.Input
-										{...row}
-										label='Code'
-										className='tracking-[3px]'
-										icon={<InputIcon color='#fff' Icon={FaUser} />}
-									/>
-								)}
+								render={row => <FormElement.OtpInput {...row} label='Code' />}
 							/>
 						</div>
-						<ResendCode onResendCode={() => loginMutation.mutateAsync({ username: getValues('username') })} />
+						<ResendCode onResendCode={onResendCode} />
 					</>
 				)}
-
 				<div className='mt-2 text-center'>
 					<Button shadow isLoading={isLoading}>
 						ok

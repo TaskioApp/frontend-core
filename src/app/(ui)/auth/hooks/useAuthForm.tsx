@@ -22,7 +22,7 @@ export function useAuthForm() {
 		code: step === 'VERIFY' ? yup.string().required() : yup.string().notRequired()
 	})
 
-	const { control, handleSubmit, getValues } = useForm<IFormInput>({
+	const { control, handleSubmit, getValues, setValue } = useForm<IFormInput>({
 		defaultValues: {
 			username: '',
 			code: ''
@@ -51,7 +51,6 @@ export function useAuthForm() {
 		}
 		if (step === 'VERIFY') {
 			await verifyMutation.mutateAsync(data as VerifyRequest)
-			const me = await meMutation.mutateAsync()
 			router.replace('/app/profile')
 		}
 	}
@@ -66,6 +65,7 @@ export function useAuthForm() {
 		getValues,
 		isLoading: loading,
 		setStep,
+		setValue,
 		step
 	}
 }
