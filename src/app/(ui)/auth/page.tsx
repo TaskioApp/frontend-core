@@ -10,7 +10,7 @@ import { useAuthForm } from './hooks/useAuthForm'
 import ResendCode from './components/ResendCode'
 
 export default function Login() {
-	const { control, handleSubmit, onSubmit, loginMutation, getValues, isLoading, step, setStep } = useAuthForm()
+	const { control, handleSubmit, onSubmit, loginMutation, getValues, isLoading, step } = useAuthForm()
 
 	return (
 		<div className='flex justify-center items-center h-screen'>

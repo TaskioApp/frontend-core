@@ -4,7 +4,7 @@ import { Button } from '@taskio/ui-kit'
 import { JSX, useEffect, useState } from 'react'
 import { LoginResponse } from '@/auth/services/interfaces'
 
-const initialTime = 3
+const initialTime = 120
 
 type ResendCodeProps = {
 	onResendCode: () => Promise<LoginResponse>
@@ -31,7 +31,11 @@ const ResendCode: React.FC<ResendCodeProps> = ({ onResendCode }: ResendCodeProps
 	return (
 		<div>
 			{time > 0 && <span>{time}</span>}
-			{time === 0 && <Button isLink onClick={handleClick}>Resend Code?</Button>}
+			{time === 0 && (
+				<Button isLink className='text-xs' onClick={handleClick}>
+					Resend Code?
+				</Button>
+			)}
 		</div>
 	)
 }
