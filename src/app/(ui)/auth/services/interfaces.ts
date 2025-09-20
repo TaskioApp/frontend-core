@@ -1,6 +1,6 @@
 /** @format */
 
-import { ResponseMessage } from '@/types'
+import { ResponseMessage } from '@/types/index'
 
 export interface LoginRequest {
 	username: string

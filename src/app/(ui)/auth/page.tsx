@@ -2,10 +2,8 @@
 'use client'
 
 import { Controller } from 'react-hook-form'
-import { Button } from '@taskio/ui-kit'
-import { InputIcon } from '@taskio/ui-kit/src/components/Form/Input/InputIcon'
 import { FaUser } from 'react-icons/fa'
-import { FormElement } from '@taskio/ui-kit/src/components/Form'
+import { FormElement, Button } from '@taskio/ui-kit'
 import { useAuthForm } from './hooks/useAuthForm'
 import ResendCode from './components/ResendCode'
 
@@ -28,7 +26,7 @@ export default function Login() {
 							{...row}
 							label='First Name'
 							disabled={step === 'VERIFY'}
-							icon={<InputIcon color='#fff' Icon={FaUser} />}
+							icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />}
 						/>
 					)}
 				/>

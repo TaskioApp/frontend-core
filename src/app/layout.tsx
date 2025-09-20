@@ -24,7 +24,7 @@ export default function RootLayout({
 	children: React.ReactElement
 }>) {
 	return (
-		<html lang='en' className='dark'>
+		<html lang='en' className='darsk'>
 			<body className={`${roboto.variable} ${michroma.variable} antialiased`}>
 				<ToastContainer />
 				<Providers>{children}</Providers>
