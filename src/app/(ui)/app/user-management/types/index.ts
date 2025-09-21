@@ -6,12 +6,14 @@ export interface UserManagementResponse extends PaginationResponse<User> {
 	data: User[]
 }
 
-export interface UserManagementRequest extends PaginationRequest {
-	first_name?: string
-	last_name?: string
-	username?: string
-	email?: string
-	mobile?: string
+export type UserManagementRequest = UserManagementSearch & PaginationRequest
+
+export interface UserManagementSearch {
+	first_name?: string | null
+	last_name?: string | null
+	username?: string | null
+	email?: string | null
+	mobile?: string | null
 }
 
 export type User = {

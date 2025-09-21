@@ -7,17 +7,12 @@ import { Dispatch, SetStateAction } from 'react'
 import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FaUser } from 'react-icons/fa'
 import * as yup from 'yup'
+import { UserManagementRequest, UserManagementSearch } from '../types'
+import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
 
 type PropsType = {
-	setFilters: Dispatch<SetStateAction<UserManagementSearch>>
+	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
 	isLoading: boolean
-}
-type UserManagementSearch = {
-	first_name: string
-	last_name: string
-	username: string
-	email: string
-	mobile: string
 }
 
 const Search = ({ setFilters, isLoading }: PropsType) => {
@@ -29,7 +24,7 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 		mobile: yup.string().notRequired()
 	})
 
-	const { control, handleSubmit } = useForm<UserManagementSearch>({
+	const { control, handleSubmit, reset } = useForm<UserManagementSearch>({
 		defaultValues: {
 			first_name: '',
 			last_name: '',
@@ -40,15 +35,19 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 		resolver: yupResolver(schema)
 	})
 
-	const onSubmit: SubmitHandler<UserManagementSearch> = async (data: UserManagementSearch) => {
-		console.log(data)
-		setFilters(data)
+	const onSubmit: SubmitHandler<UserManagementSearch> = async (data: UserManagementSearch): Promise<void> => {
+		setFilters((p: UserManagementRequest) => ({ ...p, ...data }))
+	}
+
+	const onReset = (): void => {
+		reset()
+		setFilters(DEFAULT_PAGINATION_FILTERS)
 	}
 
 	return (
-		<Card>
+		<Card title='Search' icon={<FaUser size={18} />}>
 			<form onSubmit={handleSubmit(onSubmit)} className='w-full'>
-				<div className='flex flex-col md:flex-row w-full justify-center'>
+				<div className='flex flex-col md:flex-row w-full justify-center gap-2'>
 					<Controller
 						name='first_name'
 						control={control}
@@ -99,9 +98,12 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 					/>
 				</div>
 
-				<div className='mt-2 text-center'>
+				<div className='flex mt-2 justify-center gap-2'>
 					<Button shadow isLoading={isLoading}>
 						Search
+					</Button>
+					<Button variant='error' onClick={onReset}>
+						Reset
 					</Button>
 				</div>
 			</form>
