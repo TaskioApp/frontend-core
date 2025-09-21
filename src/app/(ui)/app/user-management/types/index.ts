@@ -7,7 +7,11 @@ export interface UserManagementResponse extends PaginationResponse<User> {
 }
 
 export interface UserManagementRequest extends PaginationRequest {
-	first_name: string
+	first_name?: string
+	last_name?: string
+	username?: string
+	email?: string
+	mobile?: string
 }
 
 export type User = {

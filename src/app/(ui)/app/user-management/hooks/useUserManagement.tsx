@@ -17,7 +17,7 @@ type HookType = {
 }
 
 export function useUserManagement(): HookType {
-	const [filters, setFilters] = useState<UserManagementRequest>({ ...DEFAULT_PAGINATION_FILTERS, first_name: '' })
+	const [filters, setFilters] = useState<UserManagementRequest>({ ...DEFAULT_PAGINATION_FILTERS })
 
 	const { data, isLoading } = useQuery<UserManagementResponse>({
 		queryKey: ['API_UserManagement_Index', filters],
