@@ -17,7 +17,7 @@ export const httpService: AxiosInstance = axios.create({
 	}
 })
 
-httpService.interceptors.request.use((config: InternalAxiosRequestConfig<any>) => {
+httpService.interceptors.request.use((config: InternalAxiosRequestConfig<unknown>) => {
 	if (config.url) {
 		if (routesWithoutApiPrefix.includes(config.url)) {
 			config.baseURL = baseURL.replace(/\/api$/, '')
@@ -33,7 +33,7 @@ httpService.interceptors.response.use(
 		}
 		return Promise.resolve(response)
 	},
-	async (error: AxiosError<any, any>) => {
+	async (error: AxiosError<{ message?: string }, unknown>) => {
 		const status = error.response?.status
 		const message = error.response?.data?.message
 

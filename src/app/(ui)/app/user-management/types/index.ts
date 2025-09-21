@@ -6,7 +6,9 @@ export interface UserManagementResponse extends PaginationResponse<User> {
 	data: User[]
 }
 
-export interface UserManagementRequest extends PaginationRequest {}
+export interface UserManagementRequest extends PaginationRequest {
+	first_name: string
+}
 
 export type User = {
 	id: number

@@ -7,16 +7,17 @@ import { API_UserManagement_Index } from '../services'
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 import { DataTableActionButtons } from '@taskio/ui-kit/src/components/DataTable/action-buttons'
 import { FaEdit, FaTrash } from 'react-icons/fa'
+import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
 
 type HookType = {
 	data?: UserManagementResponse
-	columns: ColumnDef<User, any>[]
+	columns: ColumnDef<User, unknown>[]
 	isLoading: boolean
 	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
 }
 
 export function useUserManagement(): HookType {
-	const [filters, setFilters] = useState<UserManagementRequest>({ page: 1, per_page: 10, page_size: 20 })
+	const [filters, setFilters] = useState<UserManagementRequest>({ ...DEFAULT_PAGINATION_FILTERS, first_name: '' })
 
 	const { data, isLoading } = useQuery<UserManagementResponse>({
 		queryKey: ['API_UserManagement_Index', filters],
@@ -25,7 +26,7 @@ export function useUserManagement(): HookType {
 
 	const columnHelper = createColumnHelper<User>()
 
-	const columns: ColumnDef<User, any>[] = useMemo(
+	const columns = useMemo(
 		() => [
 			columnHelper.display({
 				id: 'rowNumber',
@@ -62,7 +63,7 @@ export function useUserManagement(): HookType {
 				)
 			})
 		],
-		[data?.meta]
+		[columnHelper, data?.meta?.current_page, data?.meta?.per_page]
 	)
 
 	return { data, columns, isLoading, setFilters }
