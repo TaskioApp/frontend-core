@@ -3,7 +3,7 @@
 
 import { DataTable } from '@taskio/ui-kit'
 
-import { useUserManagement } from './hooks/useUserManagement'
+import { useUserManagement } from './hooks'
 import Search from './components/Search'
 
 export default function UserManagement() {

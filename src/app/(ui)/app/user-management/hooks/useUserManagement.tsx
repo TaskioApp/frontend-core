@@ -8,8 +8,9 @@ import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
 import { FaEdit } from 'react-icons/fa'
 import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
 import { DataTable } from '@taskio/ui-kit'
-import { IconButton } from '@taskio/ui-kit/src/components/IconButton'
+import { IconButton } from '@taskio/ui-kit'
 import { FaDeleteLeft } from 'react-icons/fa6'
+import { __ } from '.'
 
 type HookType = {
 	data?: UserManagementResponse
@@ -20,7 +21,6 @@ type HookType = {
 
 export function useUserManagement(): HookType {
 	const [filters, setFilters] = useState<UserManagementRequest>({ ...DEFAULT_PAGINATION_FILTERS })
-
 	const { data, isLoading } = useQuery<UserManagementResponse>({
 		queryKey: ['API_UserManagement_Index', filters],
 		queryFn: () => API_UserManagement_Index(filters)
@@ -40,17 +40,17 @@ export function useUserManagement(): HookType {
 				}
 			}),
 			columnHelper.accessor('email', {
-				header: 'Email'
+				header: __('email')
 			}),
 			columnHelper.accessor('first_name', {
-				header: 'First Name'
+				header: __('firstName')
 			}),
 			columnHelper.accessor('last_name', {
-				header: 'Last Name',
+				header: __('lastName'),
 				cell: info => info.getValue() ?? '-'
 			}),
 			columnHelper.accessor('created_at', {
-				header: 'Created At',
+				header: __('createdAt'),
 				cell: info => new Date(info.getValue()).toLocaleString(),
 				footer: info => info.column.id
 			}),

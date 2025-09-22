@@ -5,6 +5,7 @@ import { Michroma, Roboto } from 'next/font/google'
 import './globals.css'
 import { Providers } from './providers'
 import { ToastContainer } from 'react-toastify'
+import '../../i18next'
 
 const michroma = Michroma({
 	weight: '400',
