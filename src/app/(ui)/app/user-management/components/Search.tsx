@@ -48,54 +48,26 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 		<Card title='Search' icon={<FaUser size={18} />}>
 			<form onSubmit={handleSubmit(onSubmit)} className='w-full'>
 				<div className='flex flex-col md:flex-row w-full justify-center gap-2'>
-					<Controller
-						name='first_name'
-						control={control}
-						render={row => (
-							<FormElement.Input
-								{...row}
-								label='First Name'
-								icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />}
-							/>
-						)}
-					/>
+					<FormElement>
+						<Controller
+							name='first_name'
+							control={control}
+							render={row => <FormElement.Input {...row} label='First Name' />}
+						/>
+					</FormElement>
 					<Controller
 						name='last_name'
 						control={control}
-						render={row => (
-							<FormElement.Input
-								{...row}
-								label='Last Name'
-								icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />}
-							/>
-						)}
+						render={row => <FormElement.Input {...row} label='Last Name' />}
 					/>
 					<Controller
 						name='username'
 						control={control}
-						render={row => (
-							<FormElement.Input
-								{...row}
-								label='Username'
-								icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />}
-							/>
-						)}
+						render={row => <FormElement.Input {...row} label='Username' />}
 					/>
-					<Controller
-						name='email'
-						control={control}
-						render={row => (
-							<FormElement.Input {...row} label='Email' icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />} />
-						)}
-					/>
+					<Controller name='email' control={control} render={row => <FormElement.Input {...row} label='Email' />} />
 
-					<Controller
-						name='mobile'
-						control={control}
-						render={row => (
-							<FormElement.Input {...row} label='Mobile' icon={<FormElement.InputIcon color='#fff' Icon={FaUser} />} />
-						)}
-					/>
+					<Controller name='mobile' control={control} render={row => <FormElement.Input {...row} label='Mobile' />} />
 				</div>
 
 				<div className='flex mt-2 justify-center gap-2'>

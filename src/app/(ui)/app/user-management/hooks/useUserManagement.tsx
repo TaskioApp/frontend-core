@@ -5,13 +5,15 @@ import { useQuery } from '@tanstack/react-query'
 import { User, UserManagementRequest, UserManagementResponse } from '../types'
 import { API_UserManagement_Index } from '../services'
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
-import { DataTableActionButtons } from '@taskio/ui-kit/src/components/DataTable/action-buttons'
-import { FaEdit, FaTrash } from 'react-icons/fa'
+import { FaEdit } from 'react-icons/fa'
 import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
+import { DataTable } from '@taskio/ui-kit'
+import { IconButton } from '@taskio/ui-kit/src/components/IconButton'
+import { FaDeleteLeft } from 'react-icons/fa6'
 
 type HookType = {
 	data?: UserManagementResponse
-	columns: ColumnDef<User, unknown>[]
+	columns: ColumnDef<User>[]
 	isLoading: boolean
 	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
 }
@@ -56,10 +58,10 @@ export function useUserManagement(): HookType {
 				id: 'actions',
 				header: 'Actions',
 				cell: info => (
-					<DataTableActionButtons>
-						<FaEdit onClick={() => console.log(info.row.original)} />
-						<FaTrash />
-					</DataTableActionButtons>
+					<DataTable.ActionButtons>
+						<IconButton icon={<FaEdit />} title='edit' />
+						<IconButton icon={<FaDeleteLeft />} title='delete' tooltipPlacement='bottom' />
+					</DataTable.ActionButtons>
 				)
 			})
 		],
