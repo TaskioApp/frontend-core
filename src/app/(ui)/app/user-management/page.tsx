@@ -4,7 +4,7 @@
 import { DataTable } from '@taskio/ui-kit'
 
 import { useUserManagement } from './hooks'
-import Search from './components/Search'
+import { Search } from './components'
 
 export default function UserManagement() {
 	const { data, columns, isLoading, setFilters } = useUserManagement()

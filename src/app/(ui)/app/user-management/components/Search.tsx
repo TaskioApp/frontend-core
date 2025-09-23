@@ -9,6 +9,7 @@ import { FaUser } from 'react-icons/fa'
 import * as yup from 'yup'
 import { UserManagementRequest, UserManagementSearch } from '../types'
 import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
+import { Icon } from '@taskio/ui-kit'
 
 type PropsType = {
 	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
@@ -71,10 +72,10 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 				</div>
 
 				<div className='flex mt-2 justify-center gap-2'>
-					<Button shadow isLoading={isLoading}>
+					<Button shadow isLoading={isLoading} icon={<Icon.Search />}>
 						Search
 					</Button>
-					<Button variant='error' onClick={onReset}>
+					<Button variant='error' onClick={onReset} icon={<Icon.Close />}>
 						Reset
 					</Button>
 				</div>
