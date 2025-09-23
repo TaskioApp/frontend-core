@@ -8,8 +8,6 @@ import { Controller, SubmitHandler, useForm } from 'react-hook-form'
 import { FaUser } from 'react-icons/fa'
 import * as yup from 'yup'
 import { UserManagementRequest, UserManagementSearch } from '../types'
-import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
-import { Icon } from '@taskio/ui-kit'
 
 type PropsType = {
 	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
@@ -40,11 +38,6 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 		setFilters((p: UserManagementRequest) => ({ ...p, ...data }))
 	}
 
-	const onReset = (): void => {
-		reset()
-		setFilters(DEFAULT_PAGINATION_FILTERS)
-	}
-
 	return (
 		<Card title='Search' icon={<FaUser size={18} />}>
 			<form onSubmit={handleSubmit(onSubmit)} className='w-full'>
@@ -73,7 +66,7 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 
 				<div className='flex mt-2 justify-center gap-2'>
 					<Button.Search isLoading={isLoading} />
-					<Button.Reset isLoading={isLoading} />
+					<Button.Reset isLoading={isLoading} onClick={() => reset()} />
 				</div>
 			</form>
 		</Card>
