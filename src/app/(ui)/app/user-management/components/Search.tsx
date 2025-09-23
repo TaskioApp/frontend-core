@@ -72,12 +72,8 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 				</div>
 
 				<div className='flex mt-2 justify-center gap-2'>
-					<Button shadow isLoading={isLoading} icon={<Icon.Search />}>
-						Search
-					</Button>
-					<Button variant='error' onClick={onReset} icon={<Icon.Close />}>
-						Reset
-					</Button>
+					<Button.Search isLoading={isLoading} />
+					<Button.Reset isLoading={isLoading} />
 				</div>
 			</form>
 		</Card>
