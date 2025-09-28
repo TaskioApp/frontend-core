@@ -5,12 +5,10 @@ import { useQuery } from '@tanstack/react-query'
 import { User, UserManagementRequest, UserManagementResponse } from '../types'
 import { API_UserManagement_Index } from '../services'
 import { ColumnDef, createColumnHelper } from '@tanstack/react-table'
-import { FaEdit } from 'react-icons/fa'
 import { DEFAULT_PAGINATION_FILTERS } from '@/constants/search'
 import { DataTable } from '@taskio/ui-kit'
-import { IconButton } from '@taskio/ui-kit'
-import { FaDeleteLeft } from 'react-icons/fa6'
 import { __ } from '.'
+import { ActionColumn, RowColumn } from '@taskio/ui-kit'
 
 type HookType = {
 	data?: UserManagementResponse
@@ -30,15 +28,7 @@ export function useUserManagement(): HookType {
 
 	const columns = useMemo(
 		() => [
-			columnHelper.display({
-				id: 'rowNumber',
-				header: '#',
-				cell: ({ row }) => {
-					const currentPage = data?.meta?.current_page ?? 1
-					const pageSize = data?.meta?.per_page ?? 15
-					return (currentPage - 1) * pageSize + row.index + 1
-				}
-			}),
+			RowColumn({ columnHelper, data }),
 			columnHelper.accessor('email', {
 				header: __('email')
 			}),
@@ -51,21 +41,20 @@ export function useUserManagement(): HookType {
 			}),
 			columnHelper.accessor('created_at', {
 				header: __('createdAt'),
-				cell: info => new Date(info.getValue()).toLocaleString(),
-				footer: info => info.column.id
+				cell: info => new Date(info.getValue()).toLocaleString()
 			}),
-			columnHelper.accessor(row => row.id, {
-				id: 'actions',
-				header: 'Actions',
-				cell: info => (
-					<DataTable.ActionButtons>
-						<IconButton icon={<FaEdit />} title='edit' />
-						<IconButton icon={<FaDeleteLeft />} title='delete' tooltipPlacement='bottom' />
-					</DataTable.ActionButtons>
+			ActionColumn({
+				columnHelper,
+				cell: row => (
+					<>
+						<DataTable.Edit onClick={() => alert(row.id)} />
+						<DataTable.Delete />
+						<DataTable.View />
+					</>
 				)
 			})
 		],
-		[columnHelper, data?.meta?.current_page, data?.meta?.per_page]
+		[columnHelper, data]
 	)
 
 	return { data, columns, isLoading, setFilters }

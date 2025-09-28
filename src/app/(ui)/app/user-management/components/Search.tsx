@@ -64,7 +64,7 @@ const Search = ({ setFilters, isLoading }: PropsType) => {
 					<Controller name='mobile' control={control} render={row => <FormElement.Input {...row} label='Mobile' />} />
 				</div>
 
-				<div className='flex mt-2 justify-center gap-2'>
+				<div className='flex mt-5 justify-center gap-2'>
 					<Button.Search isLoading={isLoading} />
 					<Button.Reset isLoading={isLoading} onClick={() => reset()} />
 				</div>
