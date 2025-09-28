@@ -15,9 +15,16 @@ type HookType = {
 	columns: ColumnDef<User>[]
 	isLoading: boolean
 	setFilters: Dispatch<SetStateAction<UserManagementRequest>>
+	isOpen: boolean
+	setIsOpen: Dispatch<SetStateAction<boolean>>
+	selectedRow: User | null
+	setSelectedRow: Dispatch<SetStateAction<User | null>>
 }
 
 export function useUserManagement(): HookType {
+	const [isOpen, setIsOpen] = useState<boolean>(false)
+	const [selectedRow, setSelectedRow] = useState<User | null>(null)
+
 	const [filters, setFilters] = useState<UserManagementRequest>({ ...DEFAULT_PAGINATION_FILTERS })
 	const { data, isLoading } = useQuery<UserManagementResponse>({
 		queryKey: ['API_UserManagement_Index', filters],
@@ -47,7 +54,12 @@ export function useUserManagement(): HookType {
 				columnHelper,
 				cell: row => (
 					<>
-						<DataTable.Edit onClick={() => alert(row.id)} />
+						<DataTable.Edit
+							onClick={() => {
+								setIsOpen(true)
+								setSelectedRow(row)
+							}}
+						/>
 						<DataTable.Delete />
 						<DataTable.View />
 					</>
@@ -57,5 +69,5 @@ export function useUserManagement(): HookType {
 		[columnHelper, data]
 	)
 
-	return { data, columns, isLoading, setFilters }
+	return { data, columns, isLoading, setFilters, isOpen, setIsOpen, selectedRow }
 }
